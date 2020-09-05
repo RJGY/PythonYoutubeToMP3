@@ -5,33 +5,46 @@ from pytube import YouTube
 
 # this uses pafy to download
 def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=True):
+    dict = {}
     audiostream = pafy.new(videoURL).getbestaudio()
     # Download
     if relative:
-        audiostream.download(os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "").replace("|", "") + "." + audiostream.extension, True)
+        audiostream.download(os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")
+            .replace("|", "") + "." + audiostream.extension, True)
+        dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
+            "").replace("|", "") + audiostream.extension
     else:
         audiostream.download(
             downloadfolder + audiostream.title.replace("/", "_").replace("'",
             "").replace("|", "") + "." + audiostream.extension,
             True)
-    return os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "").replace("|", "") + "." + audiostream.extension
+        dict["path"] = downloadfolder + audiostream.title.replace("/", "_").replace("'",
+            "").replace("|", "") + "." + audiostream.extension
+    return dict
 
 
 # this uses pytube to download
 def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=True):
-    audiostream = YouTube(videoURL).streams.get_by_itag(251)
+    dict = {}
+    video = YouTube(videoURL)
+    audiostream = video.streams.get_by_itag(251)
     # Download
     if relative:
+        dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
+            "").replace("|", "") + ".webm"
         audiostream.download(os.getcwd() + downloadfolder)
     else:
+        dict["path"] = downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
+            "").replace("|", "") + ".webm"
         audiostream.download(downloadfolder)
-    return os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'", "").replace("|", "") + ".webm"
+    dict["artist"] = video.title.split("-", 1)[0]
+    dict["thumb"] = video.thumbnail_url
+    return dict
 
 
 def playlist(playlistURL, startingindex=None, endingindex=None):
     print("Downloading URLS")
     playlistURLs = []
-    # TODO - have some error handling incase they enter the wrong URL
     playlistVideos = pafy.get_playlist2(playlistURL)
     if endingindex is None:
         endingindex = len(playlistVideos)

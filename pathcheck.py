@@ -18,5 +18,5 @@ def clearcache(dirpath, relative):
     if relative:
         dirpath = os.getcwd() + dirpath
     for file in os.listdir(dirpath):
-        print(file)
-        os.remove(dirpath + file)
+        if os.path.isfile(dirpath + file):
+            os.remove(dirpath + file)
