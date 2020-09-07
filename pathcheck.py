@@ -10,7 +10,7 @@ def pathexists(dirpath, relative):
         try:
             os.mkdir(dirpath)
         except OSError:
-            print("Creation of path failed. Exiting prorgram.")
+            print("Creation of path failed. Exiting program.")
             exit()
 
 
