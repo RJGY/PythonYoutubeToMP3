@@ -20,5 +20,5 @@ def converttomp3(dict, conversionfolder="\\MP3s\\", relative=True):
         song.export(path, format="mp3")
     else:
         song.export(path, format="mp3", cover=dict["thumb"], tags={"artist": dict["artist"], "title": dict["title"],
-                                                                   "author": dict["author"]})
+                                                                   "album": dict["album"]})
     return True

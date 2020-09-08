@@ -9,14 +9,25 @@ def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
     videourls = downloader.playlist(playlistURL, startingindex, endingindex)
+    count = 0
     for video in videourls:
         if not converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative), conversionfolder,
                 relative):
             print("First download method failed, attempting second method.")
             converter.converttomp3(downloader.downloadvideoaudio2(video, downloadfolder, relative), conversionfolder,
                     relative)
-        pathcheck.clearcache(downloadfolder, relative)
+        count += 1
+        if count % 100 == 0:
+            if pathcheck.checkcache(downloadfolder, relative):
+                pathcheck.clearcache(downloadfolder, relative)
+    pathcheck.clearcache(downloadfolder, relative)
 
+
+# TODO - Add new main method for a single song.
+
+# TODO - Refactor layout of code for readability and add comments.
+
+# TODO - Make code run without python with py2exe or Cython.
 
 if __name__ == '__main__':
     downloadandconvertplaylist("https://www.youtube.com/playlist?list=PLUDyUa7vgsQlEST5MYSqTmc03U0Mr_Ihc", 0, 10)
