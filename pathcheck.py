@@ -14,7 +14,6 @@ def pathexists(dirpath, relative):
             exit()
 
 
-# TODO - cache clear should only run when temp download has hit 1GB of space.
 def clearcache(dirpath, relative):
     if relative:
         dirpath = os.getcwd() + dirpath
@@ -26,4 +25,15 @@ def clearcache(dirpath, relative):
 def checkcache(dirpath, relative):
     if relative:
         dirpath = os.getcwd() + dirpath
+    size = 0
+    for folderpath, foldernames, filenames in os.walk(dirpath):
+        for file in filenames:
+            path = folderpath + file
+            size += os.path.getsize(path)
+    if size > 1000000000:
+        return True
+    return False
 
+
+if __name__ == '__main__':
+    print(checkcache("\\MP3s\\", True))
