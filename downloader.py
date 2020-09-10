@@ -81,6 +81,6 @@ def downloadcover(thumb, covername, downloadfolder, relative):
     if relative:
         downloadfolder = os.getcwd() + downloadfolder
     img_data = requests.get(thumb).content
-    with open(downloadfolder + covername + ".jpeg", 'wb') as handler:
+    with open((downloadfolder + covername + ".jpeg").replace("|", ""), 'wb') as handler:
         handler.write(img_data)
-    return downloadfolder + covername + ".jpeg"
+    return (downloadfolder + covername + ".jpeg").replace("|", "")
