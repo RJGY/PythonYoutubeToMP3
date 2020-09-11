@@ -92,5 +92,7 @@ def start():
 #  That's a lot of work...
 
 
+# TODO - Make ffmpeg installer somehow...
+
 if __name__ == '__main__':
     start()
