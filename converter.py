@@ -2,10 +2,11 @@ import os
 import pydub
 
 # This function converts any media file to an mp3.
-# This func tion uses pydub.
+# This function uses pydub.
 def converttomp3(dict, conversionfolder="\\MP3s\\", relative=True):
     if "path" not in dict:
         return
+
     videofile = dict["path"]
     mp3name = os.path.splitext(os.path.basename(videofile))[0] + ".mp3"
     extension = os.path.splitext(os.path.basename(videofile))[1].replace(".", "")
@@ -13,6 +14,7 @@ def converttomp3(dict, conversionfolder="\\MP3s\\", relative=True):
         song = pydub.AudioSegment.from_file(videofile, format=extension)
     except pydub.exceptions.CouldntDecodeError:
         return False
+
     if relative:
         path = os.getcwd() + conversionfolder + mp3name
     else:

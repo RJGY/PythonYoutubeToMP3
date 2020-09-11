@@ -1,16 +1,20 @@
 import os
 
+
 # This function checks if the path exists. If it does not, it will create a directory there.
-# If the function cannot execute properly, it will return false.
+# If the function cannot execute properly, it will exit.
 def pathexists(dirpath, relative):
     if relative:
         dirpath = os.getcwd() + dirpath
+    # If the path exists, return and continue.
     if os.path.isdir(dirpath):
         return
     else:
         try:
+            # If the path does not exist, make it.
             os.mkdir(dirpath)
         except OSError:
+            # If error, print debug and exit.
             print("Creation of path failed. Exiting program.")
             exit()
 
@@ -29,11 +33,13 @@ def clearcache(dirpath, relative):
 def checkcache(dirpath, relative):
     if relative:
         dirpath = os.getcwd() + dirpath
+
     size = 0
     for folderpath, foldernames, filenames in os.walk(dirpath):
         for file in filenames:
             path = folderpath + file
             size += os.path.getsize(path)
+    # Return true or false depending on whether the size of the files are greater than 1 gigabyte.
     if size > 1000000000:
         return True
     return False

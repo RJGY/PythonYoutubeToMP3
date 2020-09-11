@@ -10,7 +10,7 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
     dict = {}
     video = pafy.new(videoURL)
     audiostream = video.getbestaudio()
-    # Download
+    # Download video.
     if relative:
         audiostream.download(os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")
             .replace("|", "") + "." + audiostream.extension, True)
@@ -23,6 +23,8 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
             True)
         dict["path"] = downloadfolder + audiostream.title.replace("/", "_").replace("'",
             "").replace("|", "") + "." + audiostream.extension
+
+    # Add extra information to dictionary.
     if extra:
         dict["artist"] = video.title.split("-", 1)[0]
         dict["thumb"] = downloadcover(video.bigthumbhd, video.title, downloadfolder, relative)
@@ -36,7 +38,7 @@ def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=Tr
     dict = {}
     video = YouTube(videoURL)
     audiostream = video.streams.get_by_itag(251)
-    # Download
+    # Download video.
     if relative:
         dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
             "").replace("|", "") + ".webm"
@@ -45,6 +47,8 @@ def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=Tr
         dict["path"] = downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
             "").replace("|", "") + ".webm"
         audiostream.download(downloadfolder)
+
+    # Add extra information to dictionary.
     if extra:
         dict["artist"] = video.title.split("-", 1)[0]
         dict["thumb"] = downloadcover(video.thumbnail_url, video.title, downloadfolder, relative)
@@ -57,6 +61,8 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
     print("Downloading URLS")
     playlistURLs = []
     playlistVideos = pafy.get_playlist2(playlistURL)
+
+    # Error checking for indexes.
     if endingindex is None:
         endingindex = len(playlistVideos)
     if not isinstance(endingindex, int):
@@ -71,6 +77,8 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
         return
     if startingindex < 0:
         startingindex = 0
+
+    # Creates a list of YouTube URLS from the playlist.
     print("Starting Download")
     for i in range(startingindex, endingindex):
         playlistURLs.append("https://www.youtube.com/watch?v=" + playlistVideos[i].videoid)
@@ -79,9 +87,13 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
 
 
 def downloadcover(thumb, covername, downloadfolder, relative):
+    # Changes folder path if relative or not.
     if relative:
         downloadfolder = os.getcwd() + downloadfolder
+    # Use requests to download the image.
     img_data = requests.get(thumb).content
+    # Download it to a specific folder with a specific name.
     with open((downloadfolder + covername + ".jpeg").replace("|", ""), 'wb') as handler:
         handler.write(img_data)
+    # Return download location.
     return (downloadfolder + covername + ".jpeg").replace("|", "")

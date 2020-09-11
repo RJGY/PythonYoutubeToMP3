@@ -7,11 +7,12 @@ downloader.pafy.set_api_key("AIzaSyCQyk6dS1nomkmGlPuK-zJc9CjGg6ziWFA")
 
 # Function which allows users to download a whole playlist.
 def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):
+    # Check if path exists for parsed variables.
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
     videourls = downloader.playlist(playlistURL, startingindex, endingindex)
     count = 0
-    # Iterate through video urls.y
+    # Iterate through video urls.
     for video in videourls:
         # If one of the downloaders are unable to download the song, use the other download method.
         if not converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder,
@@ -86,8 +87,6 @@ def start():
             exit(0)
         else:
             print("Functionality doesnt exist!")
-
-# TODO - Refactor layout of code for readability and add comments.
 
 # TODO - Make code run without python with py2exe or Cython. The exe will also need to install ffmpeg and set the path.
 #  That's a lot of work...
