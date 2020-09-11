@@ -1,7 +1,8 @@
 import os
 import pydub
 
-
+# This function converts any media file to an mp3.
+# This func tion uses pydub.
 def converttomp3(dict, conversionfolder="\\MP3s\\", relative=True):
     if "path" not in dict:
         return

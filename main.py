@@ -5,12 +5,15 @@ import pathcheck
 downloader.pafy.set_api_key("AIzaSyCQyk6dS1nomkmGlPuK-zJc9CjGg6ziWFA")
 
 
+# Function which allows users to download a whole playlist.
 def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
     videourls = downloader.playlist(playlistURL, startingindex, endingindex)
     count = 0
+    # Iterate through video urls.y
     for video in videourls:
+        # If one of the downloaders are unable to download the song, use the other download method.
         if not converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder,
                 relative):
             print("First download method failed, attempting second method.")
@@ -26,14 +29,17 @@ def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None
 def downloadandconvertsong(songurl, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
+    # If one of the downloaders are unable to download the song, use the other download method.
     if not converter.converttomp3(downloader.downloadvideoaudio(songurl, downloadfolder, relative, extra), conversionfolder,
                                   relative):
         print("First download method failed, attempting second method.")
         converter.converttomp3(downloader.downloadvideoaudio2(songurl, downloadfolder, relative, extra), conversionfolder,
                                relative)
+    # Clear the cache after downloading the song.
     pathcheck.clearcache(downloadfolder, relative)
 
 
+# Function for UI.
 def start():
     loop = True
     while loop:

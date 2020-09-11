@@ -4,7 +4,8 @@ import requests
 from pytube import YouTube
 
 
-# this uses pafy to download
+# This function uses pafy to download Youtube videos from the best audio it can get. This is
+# normally in the form of webms.
 def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=True, extra=True):
     dict = {}
     video = pafy.new(videoURL)
