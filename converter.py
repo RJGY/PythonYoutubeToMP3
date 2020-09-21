@@ -25,7 +25,7 @@ def converttomp3(dictionary, conversionfolder="\\MP3s\\", relative=True):
         path = os.getcwd() + conversionfolder + mp3name
     else:
         path = conversionfolder + mp3name
-    if "thumb" not in dict:
+    if "thumb" not in dictionary:
         song.export(path, format="mp3")
     else:
         song.export(path, format="mp3", cover=dictionary["thumb"], tags={"artist": dictionary["artist"], "title":

@@ -1,0 +1,1 @@
+pyinstaller "C:\Users\GI\Desktop\Python\Python Projects\YoutubeToMP3Downloader\main.py" -F -c

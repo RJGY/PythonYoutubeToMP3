@@ -1,6 +1,7 @@
 import downloader
 import converter
 import pathcheck
+import youtube_dl
 
 downloader.pafy.set_api_key("AIzaSyCQyk6dS1nomkmGlPuK-zJc9CjGg6ziWFA")
 
@@ -92,5 +93,4 @@ def start():
 #  That's a lot of work...
 
 
-if __name__ == '__main__':
-    start()
+start()
