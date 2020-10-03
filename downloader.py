@@ -36,8 +36,14 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
         if "-" in video.title:
             dict["artist"] = video.title.split("-", 1)[0]
             dict["title"] = video.title.split("-", 1)[1]
-        thumburl = pytube.YouTube(videoURL).thumbnail_url
-        dict["thumb"] = downloadcover(thumburl, video.title, downloadfolder, relative)
+        cannotDownloadThumb = False
+        try:
+            thumburl = pytube.YouTube(videoURL).thumbnail_url
+        except pytube.exceptions.RegexMatchError and KeyError:
+            print("Unable to download thumbnail. Skipping.")
+            cannotDownloadThumb = True
+        if not cannotDownloadThumb:
+            dict["thumb"] = downloadcover(thumburl, video.title, downloadfolder, relative)
         dict["album"] = video.author
     return dict
 
@@ -83,7 +89,7 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
         print("something went wrong with ending index")
         return
     if endingindex > len(playlistVideos):
-        endingindex = len(playlistVideos)
+        endingindex = len(playlistVideos)-1
     if startingindex is None:
         startingindex = 0
     if not isinstance(startingindex, int):

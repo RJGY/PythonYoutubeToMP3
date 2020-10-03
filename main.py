@@ -1,7 +1,6 @@
 import downloader
 import converter
 import pathcheck
-import youtube_dl
 
 downloader.pafy.set_api_key("AIzaSyCQyk6dS1nomkmGlPuK-zJc9CjGg6ziWFA")
 
@@ -72,7 +71,9 @@ def start():
                                "(eg. True/False): ")))
         elif user == 3:
             playlisturl = input("Enter the YouTube playlist URL: ")
-            downloadandconvertplaylist(playlisturl)
+            downloadandconvertplaylist(playlisturl, int(input("Enter the index of where you wish to start downloading "
+                                                              "from (eg. a number, 0, 1, 2, etc.): ")),
+                    int(input("Enter the index of where you wish to stop downloading to (eg. a number, 10, 11, 12, etc.): ")))
         elif user == 4:
             playlisturl = input("Enter the YouTube playlist URL: ")
             downloadandconvertplaylist(playlisturl, int(input("Enter the index of where you wish to start downloading "
