@@ -1,3 +1,5 @@
+# Main method of the program. Run from here.
+
 import downloader
 import converter
 import pathcheck
