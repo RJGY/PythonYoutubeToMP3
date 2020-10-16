@@ -32,11 +32,11 @@ def converttomp3(dictionary, conversionfolder="\\MP3s\\", relative=True):
     # Check if extras was ticked by checking if dictionary key was set.
     if "artist" not in dictionary:
         if "thumb" not in dictionary or dictionary["thumb"] is None:
-            song.export(path, format="mp3", tags={"artist": dictionary["artist"], "title":
-                        dictionary["title"], "album": dictionary["album"]})
+            song.export(path, format="mp3", tags={"artist": dictionary["artist"].strip(), "title":
+                        dictionary["title"].strip(), "album": dictionary["album"]})
         else:
-            song.export(path, format="mp3", cover=dictionary["thumb"], tags={"artist": dictionary["artist"], "title":
-                        dictionary["title"], "album": dictionary["album"]})
+            song.export(path, format="mp3", cover=dictionary["thumb"], tags={"artist": dictionary["artist"].strip(), "title":
+                        dictionary["title"].strip(), "album": dictionary["album"]})
     else:
         song.export(path, format="mp3")
     return True

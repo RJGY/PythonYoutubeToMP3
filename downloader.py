@@ -34,8 +34,8 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
     # Add extra information to dictionary.
     if extra:
         if "-" in video.title:
-            dict["artist"] = video.title.split("-", 1)[0].strip()
-            dict["title"] = video.title.split("-", 1)[1].strip()
+            dict["artist"] = video.title.split("-", 1)[0]
+            dict["title"] = video.title.split("-", 1)[1]
         else:
             dict["artist"] = video.title
             dict["title"] = video.title
@@ -76,8 +76,8 @@ def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=Tr
     # Add extra information to dictionary to be assigned by converter.
     if extra:
         if "-" in video.title:
-            dict["artist"] = video.title.split("-", 1)[0].strip()
-            dict["title"] = video.title.split("-", 1)[1].strip()
+            dict["artist"] = video.title.split("-", 1)[0]
+            dict["title"] = video.title.split("-", 1)[1]
         else:
             dict["artist"] = video.title
             dict["title"] = video.title
