@@ -42,7 +42,7 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
         cannotdownloadthumbnail = False
         try:
             thumburl = pytube.YouTube(videoURL).thumbnail_url
-        except pytube.exceptions.RegexMatchError or KeyError:
+        except pytube.exceptions.RegexMatchError or KeyError["assets"]:
             print("Unable to download thumbnail. Skipping.")
             dict["thumb"] = None
             cannotdownloadthumbnail = True
@@ -83,7 +83,7 @@ def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=Tr
             dict["title"] = video.title
         try:
             dict["thumb"] = downloadcover(video.thumbnail_url, video.title, downloadfolder, relative)
-        except pytube.exceptions.RegexMatchError or KeyError:
+        except pytube.exceptions.RegexMatchError or KeyError["assets"]:
             print("Unable to download thumbnail. Skipping.")
             dict["thumb"] = None
         dict["album"] = video.author
