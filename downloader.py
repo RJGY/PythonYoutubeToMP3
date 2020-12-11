@@ -20,16 +20,19 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
     # Download video. Uses .replace a million times cause I cannot be bothered to regex it.
     if relative:
         audiostream.download(os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")
-            .replace("|", "") + "." + audiostream.extension, True)
+            .replace("|", "").replace("【", " (").replace("】", ") ").replace("\"", "")
+            .replace(":", "").strip() + "." + audiostream.extension, True)
         dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")\
-            .replace("|", "") + "." + audiostream.extension
+            .replace("|", "").replace("【", " (").replace("】", ") ").replace("\"", "")\
+            .replace(":", "").strip() + "." + audiostream.extension
     else:
         audiostream.download(
             downloadfolder + audiostream.title.replace("/", "_").replace("'",
-            "").replace("|", "") + "." + audiostream.extension,
-            True)
+            "").replace("|", "").replace("【", "(").replace("】", ")").replace("\"", "")
+            .replace(":", "").strip() + "." + audiostream.extension, True)
         dict["path"] = downloadfolder + audiostream.title.replace("/", "_").replace("'",
-            "").replace("|", "") + "." + audiostream.extension
+            "").replace("|", "").replace("【", "(").replace("】", ")").replace("\"", "")\
+            .replace(":", "").strip() + "." + audiostream.extension
 
     # Add extra information to dictionary.
     if extra:
@@ -129,7 +132,7 @@ def downloadcover(thumb, covername, downloadfolder, relative):
     # Use requests to download the image.
     img_data = requests.get(thumb).content
     # Download it to a specific folder with a specific name.
-    with open((downloadfolder + covername + ".jpeg").replace("|", ""), 'wb') as handler:
+    with open((downloadfolder + covername + ".jpeg").replace("|", "").replace("\"", "").replace("/", "_"), 'wb') as handler:
         handler.write(img_data)
     # Return download location.
-    return (downloadfolder + covername + ".jpeg").replace("|", "")
+    return (downloadfolder + covername + ".jpeg").replace("|", "").replace("\"", "").replace("/", "_")
