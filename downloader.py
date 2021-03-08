@@ -70,11 +70,11 @@ def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=Tr
     # Download video.
     if relative:
         dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
-            "").replace("|", "") + ".webm"
+            "").replace("|", "").replace("/", "") + ".webm"
         audiostream.download(os.getcwd() + downloadfolder)
     else:
         dict["path"] = downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
-            "").replace("|", "") + ".webm"
+            "").replace("|", "").replace("/", "") + ".webm"
         audiostream.download(downloadfolder)
 
     # Add extra information to dictionary to be assigned by converter.
