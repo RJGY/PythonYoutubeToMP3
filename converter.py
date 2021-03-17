@@ -34,10 +34,10 @@ def converttomp3(dictionary, conversionfolder="\\MP3s\\", relative=True):
     if dictionary["artist"] is not None:
         if "thumb" not in dictionary or dictionary["thumb"] is None:
             song.export(path, format="mp3", tags={"artist": dictionary["artist"].strip(), "title":
-                        dictionary["title"].strip()})
+                        dictionary["title"].strip(), "album": ""})
         else:
-            song.export(path, format="mp3", cover=dictionary["thumb"], tags={"artist": dictionary["artist"].strip(), "title":
-                        dictionary["title"].strip()})
+            song.export(path, format="mp3", cover=dictionary["thumb"], tags={"artist": dictionary["artist"].strip(),
+                        "title": dictionary["title"].strip(), "album": dictionary["album"].strip()})
     else:
         song.export(path, format="mp3")
     return True
