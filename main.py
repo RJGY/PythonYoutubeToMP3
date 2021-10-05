@@ -16,12 +16,9 @@ def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None
     count = 0
     # Iterate through video urls.
     for video in videourls:
-        # If one of the downloaders are unable to download the song, use the other download method.
-        if not converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder,
-                relative):
-            print("First download method failed, attempting second method.")
-            converter.converttomp3(downloader.downloadvideoaudio2(video, downloadfolder, relative, extra), conversionfolder,
-                    relative)
+        converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder,
+                               relative)
+
         count += 1
         if count % 100 == 0:
             if pathcheck.checkcache(downloadfolder, relative):
@@ -33,11 +30,8 @@ def downloadandconvertsong(songurl, extra=True, downloadfolder="\\tempDownload\\
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
     # If one of the downloaders are unable to download the song, use the other download method.
-    if not converter.converttomp3(downloader.downloadvideoaudio(songurl, downloadfolder, relative, extra), conversionfolder,
-                                  relative):
-        print("First download method failed, attempting second method.")
-        converter.converttomp3(downloader.downloadvideoaudio2(songurl, downloadfolder, relative, extra), conversionfolder,
-                               relative)
+    converter.converttomp3(downloader.downloadvideoaudio(songurl, downloadfolder, relative, extra), conversionfolder,
+                           relative)
     # Clear the cache after downloading the song.
     pathcheck.clearcache(downloadfolder, relative)
 

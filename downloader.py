@@ -4,60 +4,8 @@ import requests
 import pytube
 
 
-# This function uses pafy to download Youtube videos from the best audio it can get. This is
-# normally in the form of webms.
-def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=True, extra=True):
-    dict = {}
-    try:
-        video = pafy.new(videoURL)
-    except ValueError:
-        print("Invalid Youtube URL. Exiting.")
-        return None
-    except OSError:
-        print("Unable to extract video data from Youtube. Exiting.")
-        return None
-    audiostream = video.getbestaudio()
-    # Download video. Uses .replace a million times cause I cannot be bothered to regex it.
-    if relative:
-        audiostream.download(os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")
-            .replace("|", "").replace("【", " (").replace("】", ") ").replace("\"", "")
-            .replace(":", "").strip() + "." + audiostream.extension, True)
-        dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace("/", "_").replace("'", "")\
-            .replace("|", "").replace("【", " (").replace("】", ") ").replace("\"", "")\
-            .replace(":", "").strip() + "." + audiostream.extension
-    else:
-        audiostream.download(
-            downloadfolder + audiostream.title.replace("/", "_").replace("'",
-            "").replace("|", "").replace("【", "(").replace("】", ")").replace("\"", "")
-            .replace(":", "").strip() + "." + audiostream.extension, True)
-        dict["path"] = downloadfolder + audiostream.title.replace("/", "_").replace("'",
-            "").replace("|", "").replace("【", "(").replace("】", ")").replace("\"", "")\
-            .replace(":", "").strip() + "." + audiostream.extension
-
-    # Add extra information to dictionary.
-    if extra:
-        if "-" in video.title:
-            dict["artist"] = video.title.split("-", 1)[0]
-            dict["title"] = video.title.split("-", 1)[1]
-        else:
-            dict["artist"] = video.title
-            dict["title"] = video.title
-        cannotdownloadthumbnail = False
-        thumburl = None
-        try:
-            thumburl = pytube.YouTube(videoURL).thumbnail_url
-        except pytube.exceptions.RegexMatchError or Exception:
-            print("Unable to download thumbnail. Skipping.")
-            dict["thumb"] = None
-            cannotdownloadthumbnail = True
-        if not cannotdownloadthumbnail:
-            dict["thumb"] = downloadcover(thumburl, video.title, downloadfolder, relative)
-        dict["album"] = video.author
-    return dict
-
-
 # this uses pytube to download
-def downloadvideoaudio2(videoURL, downloadfolder="\\tempDownload\\", relative=True, extra=True):
+def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=True, extra=True):
     dict = {}
     try:
         video = pytube.YouTube(videoURL)
