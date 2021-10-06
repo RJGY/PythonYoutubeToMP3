@@ -4,8 +4,6 @@ import downloader
 import converter
 import pathcheck
 
-downloader.pafy.set_api_key("AIzaSyCQyk6dS1nomkmGlPuK-zJc9CjGg6ziWFA")
-
 
 # Function which allows users to download a whole playlist.
 def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):

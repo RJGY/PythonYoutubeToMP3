@@ -1,4 +1,3 @@
-import pafy
 import os
 import requests
 import pytube
@@ -46,7 +45,7 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
     print("Downloading URLS")
     # Variables
     playlistURLs = []
-    playlistVideos = pafy.get_playlist2(playlistURL)
+    playlistVideos = pytube.Playlist(playlistURL)
 
     # Error checking for indexes.
     if endingindex is None:
@@ -66,10 +65,9 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
 
     # Creates a list of YouTube URLS from the playlist.
     print("Starting Download")
-    for i in range(startingindex, endingindex):
-        playlistURLs.append("https://www.youtube.com/watch?v=" + playlistVideos[i].videoid)
-        # Debug statement.
-        print(str(i))
+    for url in playlistVideos.video_urls[startingindex:endingindex]:
+        playlistURLs.append(url)
+
     return playlistURLs
 
 
