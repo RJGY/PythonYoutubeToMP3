@@ -17,12 +17,10 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
     # TODO: make a regex for this bit cause its kinda ridiculous.
     # Download video.
     if relative:
-        dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
-            "").replace("|", "").replace("/", "") + ".webm"
+        dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(",", "").replace(".", "").replace("'", "").replace("|", "").replace("/", "") + ".webm"
         audiostream.download(os.getcwd() + downloadfolder)
     else:
-        dict["path"] = downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",
-            "").replace("|", "").replace("/", "") + ".webm"
+        dict["path"] = downloadfolder + audiostream.title.replace(",", "").replace(".", "").replace("'", "").replace("|", "").replace("/", "") + ".webm"
         audiostream.download(downloadfolder)
 
     # Add extra information to dictionary to be assigned by converter.
@@ -34,7 +32,7 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
             dict["artist"] = video.title
             dict["title"] = video.title
         try:
-            dict["thumb"] = downloadcover(video.thumbnail_url, video.title, downloadfolder, relative)
+            dict["thumb"] = downloadcover(video.thumbnail_url, downloadfolder, relative)
         except pytube.exceptions.RegexMatchError or KeyError["assets"]:
             print("Unable to download thumbnail. Skipping.")
             dict["thumb"] = None
@@ -72,14 +70,19 @@ def playlist(playlistURL, startingindex=None, endingindex=None):
     return playlistURLs
 
 
-def downloadcover(thumb, covername, downloadfolder, relative):
+def downloadcover(thumb, downloadfolder, relative):
     # Changes folder path if relative or not.
     if relative:
         downloadfolder = os.getcwd() + downloadfolder
     # Use requests to download the image.
     img_data = requests.get(thumb).content
     # Download it to a specific folder with a specific name.
-    with open((downloadfolder + covername + ".jpeg").replace("|", "").replace("\"", "").replace("/", "_"), 'wb') as handler:
+    with open((downloadfolder + "cover.jpeg"), 'wb') as handler:
         handler.write(img_data)
     # Return download location.
-    return (downloadfolder + covername + ".jpeg").replace("|", "").replace("\"", "").replace("/", "_")
+    return (downloadfolder + "cover.jpeg")
+
+
+if __name__ == "__main__":
+    print("You ran the wrong file.")
+    print("Run main.py")

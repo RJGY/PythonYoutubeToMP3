@@ -41,3 +41,8 @@ def converttomp3(dictionary, conversionfolder="\\MP3s\\", relative=True):
     else:
         song.export(path, format="mp3")
     return True
+
+
+if __name__ == "__main__":
+    print("You ran the wrong file.")
+    print("Run main.py")

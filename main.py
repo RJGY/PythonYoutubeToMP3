@@ -10,17 +10,12 @@ def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
     videourls = downloader.playlist(playlistURL, startingindex, endingindex)
-    count = 0
+    
     # Iterate through video urls.
     for video in videourls:
-        converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder,
-                               relative)
+        converter.converttomp3(downloader.downloadvideoaudio(video, downloadfolder, relative, extra), conversionfolder, relative)
+        pathcheck.clearcache(downloadfolder, relative)
 
-        count += 1
-        if count % 100 == 0:
-            if pathcheck.checkcache(downloadfolder, relative):
-                pathcheck.clearcache(downloadfolder, relative)
-    pathcheck.clearcache(downloadfolder, relative)
 
 # Function which allows users to download a single song from a youtube video
 def downloadandconvertsong(songurl, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):
@@ -83,5 +78,5 @@ def start():
         else:
             print("Functionality doesnt exist!")
 
-
-start()
+if __name__ == "__main__":
+    start()
