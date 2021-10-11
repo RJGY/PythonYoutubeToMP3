@@ -14,6 +14,7 @@ def downloadvideoaudio(videoURL, downloadfolder="\\tempDownload\\", relative=Tru
     # 251 is the iTag for the highest quality audio.
     audiostream = video.streams.get_by_itag(251)
 
+    # TODO: make a regex for this bit cause its kinda ridiculous.
     # Download video.
     if relative:
         dict["path"] = os.getcwd() + downloadfolder + audiostream.title.replace(".", "").replace(",", "").replace("'",

@@ -1,5 +1,4 @@
 # Main method of the program. Run from here.
-
 import downloader
 import converter
 import pathcheck
@@ -23,7 +22,7 @@ def downloadandconvertplaylist(playlistURL, startingindex=None, endingindex=None
                 pathcheck.clearcache(downloadfolder, relative)
     pathcheck.clearcache(downloadfolder, relative)
 
-
+# Function which allows users to download a single song from a youtube video
 def downloadandconvertsong(songurl, extra=True, downloadfolder="\\tempDownload\\", conversionfolder="\\MP3s\\", relative=True):
     pathcheck.pathexists(downloadfolder, relative)
     pathcheck.pathexists(conversionfolder, relative)
@@ -34,7 +33,7 @@ def downloadandconvertsong(songurl, extra=True, downloadfolder="\\tempDownload\\
     pathcheck.clearcache(downloadfolder, relative)
 
 
-# Function for UI.
+# Main function for CLI.
 def start():
     loop = True
     while loop:
@@ -83,9 +82,6 @@ def start():
             exit(0)
         else:
             print("Functionality doesnt exist!")
-
-# TODO - Make code run without python with py2exe or Cython. The exe will also need to install ffmpeg and set the path.
-#  That's a lot of work...
 
 
 start()
